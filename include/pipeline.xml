@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
+
+  <nf:name>pipeline</nf:name>
+  <nf:prefix>pipe</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Registers for Pipeline control + IMEM/DMEM programming</nf:description>
+  <nf:blocksize>64</nf:blocksize>
+  <nf:registers>
+    <!-- software regs -->
+    <nf:register>
+      <nf:name>ctrl</nf:name>
+      <nf:description>
+        Control bits:
+        ctrl[0] run_level,
+        ctrl[1] step_req (0->1 pulse),
+        ctrl[2] pc_reset_req (0->1 pulse),
+        ctrl[3] imem_we_req (0->1 pulse),
+        ctrl[4] dmem_en_level,
+        ctrl[5] dmem_we_level
+      </nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>imem_addr</nf:name>
+      <nf:description>I-mem program address (use [8:0])</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>imem_wdata</nf:name>
+      <nf:description>I-mem program write data (32-bit [31:0])</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>dmem_addr</nf:name>
+      <nf:description>D-mem Port-B address (use [7:0])</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>dmem_wdata_lo</nf:name>
+      <nf:description>D-mem Port-B write data low 32 bits [31:0]</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>dmem_wdata_hi</nf:name>
+      <nf:description>D-mem Port-B write data high 32 bits [63:32]</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>reserved</nf:name>
+      <nf:description>Reserved for future use</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+    
+    <!-- hardware regs -->
+    <nf:register>
+      <nf:name>pc_dbg</nf:name>
+      <nf:description>PC debug (lower 9 bits valid [8:0])</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>if_instr_dbg</nf:name>
+      <nf:description>IF/ID instruction debug (32-bit)</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>dmem_rdata_lo</nf:name>
+      <nf:description>D-mem Port-B read data low 32 bits</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>dmem_rdata_hi</nf:name>
+      <nf:description>D-mem Port-B read data high 32 bits</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+  </nf:registers>
+</nf:module>
