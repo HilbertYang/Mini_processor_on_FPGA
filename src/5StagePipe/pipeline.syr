@@ -1,0 +1,802 @@
+Release 10.1 - xst K.31 (nt)
+Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to C:/Documents and Settings/student/lab6/xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> Parameter xsthdpdir set to C:/Documents and Settings/student/lab6/xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> Reading design: pipeline.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+     9.1) Device utilization summary
+     9.2) Partition Resource Summary
+     9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "pipeline.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "pipeline"
+Output Format                      : NGC
+Target Device                      : xc2vp50-7-ff1152
+
+---- Source Options
+Top Module Name                    : pipeline
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 16
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Convert Tristates To Logic         : Yes
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Library Search Order               : pipeline.lso
+Keep Hierarchy                     : NO
+Netlist Hierarchy                  : as_optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling verilog file "REG_FILE.v" in library work
+Compiling verilog file "./I_M_32bit_512depth.v" in library work
+Module <REG_FILE> compiled
+Compiling verilog file "./D_M_64bit_256.v" in library work
+Module <I_M_32bit_512depth> compiled
+Compiling verilog file "ALU.v" in library work
+Module <D_M_64bit_256> compiled
+Compiling verilog file "stage_WB.v" in library work
+Module <ALU> compiled
+Compiling verilog file "stage_MEM_WB.v" in library work
+Module <stage_WB> compiled
+Compiling verilog file "stage_MEM.v" in library work
+Module <stage_MEM_WB> compiled
+Compiling verilog file "stage_IF_ID.v" in library work
+Module <stage_MEM> compiled
+Compiling verilog file "stage_IF.v" in library work
+Module <stage_IF_ID> compiled
+Compiling verilog file "stage_ID_EX.v" in library work
+Module <stage_IF> compiled
+Compiling verilog file "stage_ID.v" in library work
+Module <stage_ID_EX> compiled
+Compiling verilog file "stage_EX_MEM.v" in library work
+Module <stage_ID> compiled
+Compiling verilog file "stage_EX.v" in library work
+Module <stage_EX_MEM> compiled
+Compiling verilog file "pipeline.v" in library work
+Module <stage_EX> compiled
+Module <pipeline> compiled
+No errors in compilation
+Analysis of file <"pipeline.prj"> succeeded.
+ 
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for module <pipeline> in library <work> with parameters.
+	DATA_WIDTH = "00000000000000000000000000100000"
+	IMEM_ADDR_WIDTH = "00000000000000000000000000001001"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <stage_IF> in library <work> with parameters.
+	IMEM_ADDR_WIDTH = "00000000000000000000000000001001"
+
+Analyzing hierarchy for module <stage_IF_ID> in library <work> with parameters.
+	IMEM_ADDR_WIDTH = "00000000000000000000000000001001"
+
+Analyzing hierarchy for module <stage_ID> in library <work> with parameters.
+	ALU_ADD = "0001"
+	ALU_AND = "0011"
+	ALU_NOP = "0000"
+	ALU_OR = "0100"
+	ALU_SHIFTL = "0110"
+	ALU_SHIFTR = "0111"
+	ALU_SUB = "0010"
+	ALU_XNOR = "0101"
+	DATA_WIDTH = "00000000000000000000000000100000"
+	IMEM_ADDR_WIDTH = "00000000000000000000000000001001"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <stage_ID_EX> in library <work> with parameters.
+	DATA_WIDTH = "00000000000000000000000000100000"
+	IMEM_ADDR_WIDTH = "00000000000000000000000000001001"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <stage_EX> in library <work> with parameters.
+	DATA_WIDTH = "00000000000000000000000000100000"
+	IMEM_ADDR_WIDTH = "00000000000000000000000000001001"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <stage_EX_MEM> in library <work> with parameters.
+	DATA_WIDTH = "00000000000000000000000000100000"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <stage_MEM> in library <work> with parameters.
+	DATA_WIDTH = "00000000000000000000000000100000"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <stage_MEM_WB> in library <work> with parameters.
+	DATA_WIDTH = "00000000000000000000000000100000"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <stage_WB> in library <work> with parameters.
+	DATA_WIDTH = "00000000000000000000000000100000"
+	REG_ADDR_WIDTH = "00000000000000000000000000000100"
+
+Analyzing hierarchy for module <REG_FILE> in library <work> with parameters.
+	addr_width = "00000000000000000000000000000100"
+	data_width = "00000000000000000000000000100000"
+
+Analyzing hierarchy for module <ALU> in library <work> with parameters.
+	ALU_ADD = "0001"
+	ALU_AND = "0011"
+	ALU_OR = "0100"
+	ALU_SHIFTL = "0110"
+	ALU_SHIFTR = "0111"
+	ALU_SUB = "0010"
+	ALU_XNOR = "0101"
+	data_width = "00000000000000000000000000100000"
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing top module <pipeline>.
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	IMEM_ADDR_WIDTH = 32'sb00000000000000000000000000001001
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+Module <pipeline> is correct for synthesis.
+ 
+Analyzing module <stage_IF> in library <work>.
+	IMEM_ADDR_WIDTH = 32'sb00000000000000000000000000001001
+Module <stage_IF> is correct for synthesis.
+ 
+Analyzing module <stage_IF_ID> in library <work>.
+	IMEM_ADDR_WIDTH = 32'sb00000000000000000000000000001001
+Module <stage_IF_ID> is correct for synthesis.
+ 
+Analyzing module <stage_ID> in library <work>.
+	ALU_ADD = 4'b0001
+	ALU_AND = 4'b0011
+	ALU_NOP = 4'b0000
+	ALU_OR = 4'b0100
+	ALU_SHIFTL = 4'b0110
+	ALU_SHIFTR = 4'b0111
+	ALU_SUB = 4'b0010
+	ALU_XNOR = 4'b0101
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	IMEM_ADDR_WIDTH = 32'sb00000000000000000000000000001001
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+WARNING:Xst:883 - "stage_ID.v" line 223: Ignored duplicate item in case statement. 
+Module <stage_ID> is correct for synthesis.
+ 
+Analyzing module <REG_FILE> in library <work>.
+	addr_width = 32'sb00000000000000000000000000000100
+	data_width = 32'sb00000000000000000000000000100000
+INFO:Xst:1607 - Contents of array <regFile> may be accessed with an index that does not cover the full array size.
+INFO:Xst:1607 - Contents of array <regFile> may be accessed with an index that does not cover the full array size.
+INFO:Xst:1607 - Contents of array <regFile> may be accessed with an index that does not cover the full array size.
+Module <REG_FILE> is correct for synthesis.
+ 
+Analyzing module <stage_ID_EX> in library <work>.
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	IMEM_ADDR_WIDTH = 32'sb00000000000000000000000000001001
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+Module <stage_ID_EX> is correct for synthesis.
+ 
+Analyzing module <stage_EX> in library <work>.
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	IMEM_ADDR_WIDTH = 32'sb00000000000000000000000000001001
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+Module <stage_EX> is correct for synthesis.
+ 
+Analyzing module <ALU> in library <work>.
+	ALU_ADD = 4'b0001
+	ALU_AND = 4'b0011
+	ALU_OR = 4'b0100
+	ALU_SHIFTL = 4'b0110
+	ALU_SHIFTR = 4'b0111
+	ALU_SUB = 4'b0010
+	ALU_XNOR = 4'b0101
+	data_width = 32'sb00000000000000000000000000100000
+Module <ALU> is correct for synthesis.
+ 
+Analyzing module <stage_EX_MEM> in library <work>.
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+Module <stage_EX_MEM> is correct for synthesis.
+ 
+Analyzing module <stage_MEM> in library <work>.
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+Module <stage_MEM> is correct for synthesis.
+ 
+Analyzing module <stage_MEM_WB> in library <work>.
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+Module <stage_MEM_WB> is correct for synthesis.
+ 
+Analyzing module <stage_WB> in library <work>.
+	DATA_WIDTH = 32'sb00000000000000000000000000100000
+	REG_ADDR_WIDTH = 32'sb00000000000000000000000000000100
+Module <stage_WB> is correct for synthesis.
+ 
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <stage_IF_ID>.
+    Related source file is "stage_IF_ID.v".
+    Found 9-bit register for signal <pc_out>.
+    Summary:
+	inferred   9 D-type flip-flop(s).
+Unit <stage_IF_ID> synthesized.
+
+
+Synthesizing Unit <stage_ID_EX>.
+    Related source file is "stage_ID_EX.v".
+    Found 1-bit register for signal <use_imm_out>.
+    Found 9-bit register for signal <branch_target_out>.
+    Found 32-bit register for signal <imm32_out>.
+    Found 32-bit register for signal <r2_data_out>.
+    Found 1-bit register for signal <is_load_out>.
+    Found 4-bit register for signal <alu_ctrl_out>.
+    Found 1-bit register for signal <reg_wen_out>.
+    Found 32-bit register for signal <r1_data_out>.
+    Found 4-bit register for signal <rd_addr_out>.
+    Found 1-bit register for signal <is_jump_out>.
+    Found 9-bit register for signal <pc_out>.
+    Found 1-bit register for signal <is_branch_out>.
+    Found 1-bit register for signal <is_mem_inst_out>.
+    Found 1-bit register for signal <mem_wen_out>.
+    Summary:
+	inferred 129 D-type flip-flop(s).
+Unit <stage_ID_EX> synthesized.
+
+
+Synthesizing Unit <stage_EX_MEM>.
+    Related source file is "stage_EX_MEM.v".
+    Found 1-bit register for signal <is_load_out>.
+    Found 1-bit register for signal <reg_wen_out>.
+    Found 4-bit register for signal <rd_addr_out>.
+    Found 1-bit register for signal <is_mem_inst_out>.
+    Found 1-bit register for signal <mem_wen_out>.
+    Found 32-bit register for signal <alu_result_out>.
+    Found 32-bit register for signal <store_data_out>.
+    Summary:
+	inferred  72 D-type flip-flop(s).
+Unit <stage_EX_MEM> synthesized.
+
+
+Synthesizing Unit <stage_MEM_WB>.
+    Related source file is "stage_MEM_WB.v".
+    Found 1-bit register for signal <reg_wen_out>.
+    Found 4-bit register for signal <rd_addr_out>.
+    Summary:
+	inferred   5 D-type flip-flop(s).
+Unit <stage_MEM_WB> synthesized.
+
+
+Synthesizing Unit <stage_WB>.
+    Related source file is "stage_WB.v".
+Unit <stage_WB> synthesized.
+
+
+Synthesizing Unit <REG_FILE>.
+    Related source file is "REG_FILE.v".
+    Found 16x32-bit dual-port RAM <Mram_regFile> for signal <regFile>.
+    Found 16x32-bit dual-port RAM <Mram_regFile_ren> for signal <regFile>.
+    Summary:
+	inferred   2 RAM(s).
+Unit <REG_FILE> synthesized.
+
+
+Synthesizing Unit <ALU>.
+    Related source file is "ALU.v".
+    Found 32-bit adder carry out for signal <AUX_1$addsub0000>.
+    Found 32-bit xor2 for signal <Z$xor0000> created at line 22.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+Unit <ALU> synthesized.
+
+
+Synthesizing Unit <stage_IF>.
+    Related source file is "stage_IF.v".
+    Found 9-bit up counter for signal <pc>.
+    Summary:
+	inferred   1 Counter(s).
+Unit <stage_IF> synthesized.
+
+
+Synthesizing Unit <stage_ID>.
+    Related source file is "stage_ID.v".
+WARNING:Xst:647 - Input <reset> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <inst<31:28>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:646 - Signal <offset24<22:8>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 16x5-bit ROM for signal <opcode$rom0000>.
+    Found 4-bit 4-to-1 multiplexer for signal <alu_ctrl>.
+    Found 1-bit 4-to-1 multiplexer for signal <reg_wen>.
+    Found 9-bit adder for signal <branch_target$addsub0000> created at line 270.
+    Found 9-bit adder for signal <branch_target$addsub0001> created at line 270.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   2 Adder/Subtractor(s).
+	inferred   5 Multiplexer(s).
+Unit <stage_ID> synthesized.
+
+
+Synthesizing Unit <stage_EX>.
+    Related source file is "stage_EX.v".
+WARNING:Xst:646 - Signal <alu_ovf> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 9-bit adder for signal <alu_result$add0000> created at line 79.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+Unit <stage_EX> synthesized.
+
+
+Synthesizing Unit <stage_MEM>.
+    Related source file is "stage_MEM.v".
+WARNING:Xst:646 - Signal <pa_dout<63:32>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+Unit <stage_MEM> synthesized.
+
+
+Synthesizing Unit <pipeline>.
+    Related source file is "pipeline.v".
+    Found 1-bit register for signal <branch_flush_r>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <pipeline> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 2
+ 16x32-bit dual-port RAM                               : 2
+# ROMs                                                 : 1
+ 16x5-bit ROM                                          : 1
+# Adders/Subtractors                                   : 5
+ 32-bit adder carry out                                : 1
+ 33-bit subtractor                                     : 1
+ 9-bit adder                                           : 3
+# Counters                                             : 1
+ 9-bit up counter                                      : 1
+# Registers                                            : 25
+ 1-bit register                                        : 13
+ 32-bit register                                       : 5
+ 4-bit register                                        : 4
+ 9-bit register                                        : 3
+# Multiplexers                                         : 2
+ 1-bit 4-to-1 multiplexer                              : 1
+ 4-bit 4-to-1 multiplexer                              : 1
+# Xors                                                 : 1
+ 32-bit xor2                                           : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Loading device for application Rf_Device from file '2vp50.nph' in environment C:\Xilinx\10.1\ISE.
+Reading core <I_M_32bit_512depth.ngc>.
+Reading core <D_M_64bit_256.ngc>.
+Loading core <I_M_32bit_512depth> for timing and area information for instance <imem>.
+Loading core <D_M_64bit_256> for timing and area information for instance <dmem>.
+
+Synthesizing (advanced) Unit <REG_FILE>.
+INFO:Xst - HDL ADVISOR - Register <r1_data_out> currently described with an asynchronous reset, could be combined with distributed RAM <Mram_regFile> for implementation on block RAM resources if you made this reset synchronous instead.
+    -----------------------------------------------------------------------
+    | ram_type           | Distributed                         |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 16-word x 32-bit                    |          |
+    |     clkA           | connected to signal <clk>           | rise     |
+    |     weA            | connected to signal <wena>          | high     |
+    |     addrA          | connected to signal <waddr>         |          |
+    |     diA            | connected to signal <wdata>         |          |
+    -----------------------------------------------------------------------
+    | Port B                                                              |
+    |     aspect ratio   | 16-word x 32-bit                    |          |
+    |     addrB          | connected to signal <r0addr>        |          |
+    |     doB            | connected to signal <r0data>        |          |
+    -----------------------------------------------------------------------
+INFO:Xst - HDL ADVISOR - Register <r2_data_out> currently described with an asynchronous reset, could be combined with distributed RAM <Mram_regFile_ren> for implementation on block RAM resources if you made this reset synchronous instead.
+    -----------------------------------------------------------------------
+    | ram_type           | Distributed                         |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 16-word x 32-bit                    |          |
+    |     clkA           | connected to signal <clk>           | rise     |
+    |     weA            | connected to signal <wena>          | high     |
+    |     addrA          | connected to signal <waddr>         |          |
+    |     diA            | connected to signal <wdata>         |          |
+    -----------------------------------------------------------------------
+    | Port B                                                              |
+    |     aspect ratio   | 16-word x 32-bit                    |          |
+    |     addrB          | connected to signal <r1addr>        |          |
+    |     doB            | connected to signal <r1data>        |          |
+    -----------------------------------------------------------------------
+Unit <REG_FILE> synthesized (advanced).
+WARNING:Xst:1710 - FF/Latch <imm32_out_31> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_30> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_29> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_28> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_27> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_26> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_25> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_24> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_23> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_22> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_21> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_20> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_19> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_18> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_17> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_16> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_15> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_14> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_13> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <imm32_out_12> (without init value) has a constant value of 0 in block <u_id_ex>. This FF/Latch will be trimmed during the optimization process.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 2
+ 16x32-bit dual-port distributed RAM                   : 2
+# ROMs                                                 : 1
+ 16x5-bit ROM                                          : 1
+# Adders/Subtractors                                   : 5
+ 32-bit adder carry out                                : 1
+ 33-bit subtractor                                     : 1
+ 9-bit adder                                           : 3
+# Counters                                             : 1
+ 9-bit up counter                                      : 1
+# Registers                                            : 216
+ Flip-Flops                                            : 216
+# Multiplexers                                         : 2
+ 1-bit 4-to-1 multiplexer                              : 1
+ 4-bit 4-to-1 multiplexer                              : 1
+# Xors                                                 : 1
+ 32-bit xor2                                           : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <pipeline> ...
+
+Optimizing unit <stage_IF_ID> ...
+
+Optimizing unit <stage_ID_EX> ...
+
+Optimizing unit <stage_EX_MEM> ...
+
+Optimizing unit <ALU> ...
+
+Optimizing unit <stage_IF> ...
+
+Optimizing unit <stage_MEM> ...
+
+Optimizing unit <stage_ID> ...
+
+Optimizing unit <stage_EX> ...
+WARNING:Xst:1710 - FF/Latch <u_id_ex/imm32_out_12> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_13> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_14> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_15> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_16> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_17> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_18> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_19> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_20> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_21> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_22> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_23> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_24> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_25> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_26> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_27> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_28> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_29> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_30> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/imm32_out_31> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <u_id_ex/alu_ctrl_out_3> (without init value) has a constant value of 0 in block <pipeline>. This FF/Latch will be trimmed during the optimization process.
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block pipeline, actual ratio is 1.
+FlipFlop u_id_ex/is_branch_out has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 205
+ Flip-Flops                                            : 205
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                             *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : pipeline.ngr
+Top Level Output File Name         : pipeline
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : NO
+
+Design Statistics
+# IOs                              : 226
+
+Cell Usage :
+# BELS                             : 704
+#      GND                         : 3
+#      LUT2                        : 91
+#      LUT2_D                      : 3
+#      LUT3                        : 99
+#      LUT3_D                      : 3
+#      LUT3_L                      : 25
+#      LUT4                        : 253
+#      LUT4_D                      : 3
+#      LUT4_L                      : 17
+#      MULT_AND                    : 5
+#      MUXCY                       : 84
+#      MUXF5                       : 37
+#      VCC                         : 1
+#      XORCY                       : 80
+# FlipFlops/Latches                : 205
+#      FDC                         : 1
+#      FDCE                        : 204
+# RAMS                             : 67
+#      RAM16X1D                    : 64
+#      RAMB16_S36                  : 1
+#      RAMB16_S36_S36              : 2
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 225
+#      IBUF                        : 120
+#      OBUF                        : 105
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 2vp50ff1152-7 
+
+ Number of Slices:                      394  out of  23616     1%  
+ Number of Slice Flip Flops:            205  out of  47232     0%  
+ Number of 4 input LUTs:                622  out of  47232     1%  
+    Number used as logic:               494
+    Number used as RAMs:                128
+ Number of IOs:                         226
+ Number of bonded IOBs:                 226  out of    692    32%  
+ Number of BRAMs:                         3  out of    232     1%  
+ Number of GCLKs:                         1  out of     16     6%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 271   |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+-----------------------------------+-----------------------------+-------+
+Control Signal                     | Buffer(FF name)             | Load  |
+-----------------------------------+-----------------------------+-------+
+_or0001(_or00011:O)                | NONE(u_id_ex/r2_data_out_10)| 118   |
+reset                              | IBUF                        | 78    |
+_or0000(_or00001:O)                | NONE(u_if/pc_0)             | 9     |
+-----------------------------------+-----------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -7
+
+   Minimum period: 5.639ns (Maximum Frequency: 177.344MHz)
+   Minimum input arrival time before clock: 6.742ns
+   Maximum output required time after clock: 3.375ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 5.639ns (frequency: 177.344MHz)
+  Total number of paths / destination ports: 11103 / 897
+-------------------------------------------------------------------------
+Delay:               5.639ns (Levels of Logic = 6)
+  Source:            u_id_ex/is_jump_out (FF)
+  Destination:       u_id_ex/is_jump_out (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: u_id_ex/is_jump_out to u_id_ex/is_jump_out
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q            18   0.370   0.691  u_id_ex/is_jump_out (u_id_ex/is_jump_out)
+     LUT2_D:I1->O          2   0.275   0.396  u_ex/pc_write1 (ex_pc_write)
+     LUT4:I2->O          146   0.275   0.931  _or00011 (_or0001)
+     LUT2:I1->O           12   0.275   0.539  u_if_id/inst_out<27>1 (ifid_inst<27>)
+     LUT4:I2->O            1   0.275   0.000  u_id/imm32_cmp_eq0000_wg_lut<5> (u_id/imm32_cmp_eq0000_wg_lut<5>)
+     MUXCY:S->O            3   0.713   0.415  u_id/imm32_cmp_eq0000_wg_cy<5> (u_id/imm32_cmp_eq0000)
+     LUT4:I2->O            1   0.275   0.000  u_id/Mmux_alu_ctrl3 (id_alu_ctrl<2>)
+     FDCE:D                    0.208          u_id_ex/alu_ctrl_out_2
+    ----------------------------------------
+    Total                      5.639ns (2.666ns logic, 2.973ns route)
+                                       (47.3% logic, 52.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 5731 / 645
+-------------------------------------------------------------------------
+Offset:              6.742ns (Levels of Logic = 12)
+  Source:            run (PAD)
+  Destination:       u_id_ex/is_jump_out (FF)
+  Destination Clock: clk rising
+
+  Data Path: run to u_id_ex/is_jump_out
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             8   0.878   0.614  run_IBUF (run_IBUF)
+     LUT2:I0->O          198   0.275   1.043  pipe_enable1 (pipe_enable)
+     LUT4:I0->O            6   0.275   0.543  _or00011_1 (_or00011)
+     LUT2:I1->O           33   0.275   0.771  u_if_id/inst_out<17>1 (ifid_inst<17>)
+     LUT4:I1->O            1   0.275   0.000  u_id/imm32_cmp_eq0000_wg_lut<0> (u_id/imm32_cmp_eq0000_wg_lut<0>)
+     MUXCY:S->O            1   0.334   0.000  u_id/imm32_cmp_eq0000_wg_cy<0> (u_id/imm32_cmp_eq0000_wg_cy<0>)
+     MUXCY:CI->O           1   0.036   0.000  u_id/imm32_cmp_eq0000_wg_cy<1> (u_id/imm32_cmp_eq0000_wg_cy<1>)
+     MUXCY:CI->O           1   0.036   0.000  u_id/imm32_cmp_eq0000_wg_cy<2> (u_id/imm32_cmp_eq0000_wg_cy<2>)
+     MUXCY:CI->O           1   0.036   0.000  u_id/imm32_cmp_eq0000_wg_cy<3> (u_id/imm32_cmp_eq0000_wg_cy<3>)
+     MUXCY:CI->O           1   0.036   0.000  u_id/imm32_cmp_eq0000_wg_cy<4> (u_id/imm32_cmp_eq0000_wg_cy<4>)
+     MUXCY:CI->O           3   0.416   0.415  u_id/imm32_cmp_eq0000_wg_cy<5> (u_id/imm32_cmp_eq0000)
+     LUT4:I2->O            1   0.275   0.000  u_id/Mmux_alu_ctrl3 (id_alu_ctrl<2>)
+     FDCE:D                    0.208          u_id_ex/alu_ctrl_out_2
+    ----------------------------------------
+    Total                      6.742ns (3.357ns logic, 3.386ns route)
+                                       (49.8% logic, 50.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 73 / 73
+-------------------------------------------------------------------------
+Offset:              3.375ns (Levels of Logic = 1)
+  Source:            u_if/pc_8 (FF)
+  Destination:       pc_dbg<8> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: u_if/pc_8 to pc_dbg<8>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             4   0.370   0.413  u_if/pc_8 (u_if/pc_8)
+     OBUF:I->O                 2.592          pc_dbg_8_OBUF (pc_dbg<8>)
+    ----------------------------------------
+    Total                      3.375ns (2.962ns logic, 0.413ns route)
+                                       (87.8% logic, 12.2% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 26.00 secs
+Total CPU time to Xst completion: 25.92 secs
+ 
+--> 
+
+Total memory usage is 222472 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   47 (   0 filtered)
+Number of infos    :    5 (   0 filtered)
+

@@ -1,0 +1,11 @@
+# Output products list for <D_M_64bit_256>
+D_M_64bit_256.asy
+D_M_64bit_256.ngc
+D_M_64bit_256.sym
+D_M_64bit_256.v
+D_M_64bit_256.veo
+D_M_64bit_256.vhd
+D_M_64bit_256.vho
+D_M_64bit_256.xco
+D_M_64bit_256_flist.txt
+D_M_64bit_256_xmdf.tcl

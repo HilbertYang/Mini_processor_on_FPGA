@@ -1,21 +1,21 @@
 // =============================================================================
-// pipeline.v â Top-level pipeline module
+// pipeline.v – Top-level pipeline module
 //
 // Instantiates all five pipeline stages and the four inter-stage registers.
 // Port list matches exactly what pipeline_top_regs.v expects.
 //
 // Pipeline structure:
 //
-//   ââââââââââ  IF/ID  ââââââââââ  ID/EX  ââââââââââ  EX/MEM  ââââââââââ  MEM/WB  ââââââââââ
-//   â  IF    ââââââââââ¶â  ID    âââââââââââ¶â  EX    ââââââââââââ¶â  MEM   ââââââââââââ¶â  WB    â
-//   ââââââââââ  reg    ââââââââââ  reg     ââââââââââ  reg      ââââââââââ  reg      ââââââââââ
-//        â²                                      â pc_write / new_pc
-//        ââââââââââââââââââââââââââââââââââââââââ  (branch/jump redirect)
+//   ┌────────┐  IF/ID  ┌────────┐  ID/EX  ┌────────┐  EX/MEM  ┌────────┐  MEM/WB  ┌────────┐
+//   │  IF    │────────▶│  ID    │─────────▶│  EX    │──────────▶│  MEM   │──────────▶│  WB    │
+//   └────────┘  reg    └────────┘  reg     └────────┘  reg      └────────┘  reg      └────────┘
+//        ▲                                      │ pc_write / new_pc
+//        └──────────────────────────────────────┘  (branch/jump redirect)
 //
 //                            WB write-back
-//        ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-//        â   reg_wen, rd_addr, wdata  âââ WB stage âââ MEM/WB  â
-//        ââââââââââââââââââââ ID stage register file âââââââââââ
+//        ┌──────────────────────────────────────────────────────┐
+//        │   reg_wen, rd_addr, wdata  ◀── WB stage ◀── MEM/WB  │
+//        └─────────────────── ID stage register file ──────────┘
 //
 // Clock enable strategy:
 //   run=1, step=0 : pipeline runs freely (enable = 1 every cycle)
@@ -30,9 +30,9 @@
 //   (No branch prediction; two bubbles are inserted per taken branch.)
 //
 // Parameters:
-//   DATA_WIDTH      â 32 for ARM-32
-//   REG_ADDR_WIDTH  â 4  for 16 ARM registers (R0-R15)
-//   IMEM_ADDR_WIDTH â 9  matches I_M_32bit_512depth (512 words)
+//   DATA_WIDTH      – 32 for ARM-32
+//   REG_ADDR_WIDTH  – 4  for 16 ARM registers (R0-R15)
+//   IMEM_ADDR_WIDTH – 9  matches I_M_32bit_512depth (512 words)
 // =============================================================================
 
 `timescale 1ns/1ps
@@ -76,15 +76,15 @@ module pipeline #(
     // Inter-stage wires
     // =========================================================================
 
-    // ââ IF ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── IF ────────────────────────────────────────────────────────────────────
     wire [31:0]                if_inst;
     wire [IMEM_ADDR_WIDTH-1:0] if_pc;
 
-    // ââ IF/ID register outputs ââââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── IF/ID register outputs ────────────────────────────────────────────────
     wire [31:0]                ifid_inst;
     wire [IMEM_ADDR_WIDTH-1:0] ifid_pc;
 
-    // ââ ID ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── ID ────────────────────────────────────────────────────────────────────
     wire [DATA_WIDTH-1:0]      id_r1_data;
     wire [DATA_WIDTH-1:0]      id_r2_data;
     wire [REG_ADDR_WIDTH-1:0]  id_rd_addr;
@@ -100,7 +100,7 @@ module pipeline #(
     wire [IMEM_ADDR_WIDTH-1:0] id_branch_target;
     wire [IMEM_ADDR_WIDTH-1:0] id_pc_out;
 
-    // ââ ID/EX register outputs ââââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── ID/EX register outputs ────────────────────────────────────────────────
     wire [DATA_WIDTH-1:0]      idex_r1_data;
     wire [DATA_WIDTH-1:0]      idex_r2_data;
     wire [DATA_WIDTH-1:0]      idex_imm32;
@@ -116,7 +116,7 @@ module pipeline #(
     wire [IMEM_ADDR_WIDTH-1:0] idex_branch_target;
     wire [IMEM_ADDR_WIDTH-1:0] idex_pc;
 
-    // ââ EX ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── EX ────────────────────────────────────────────────────────────────────
     wire [DATA_WIDTH-1:0]      ex_alu_result;
     wire [DATA_WIDTH-1:0]      ex_store_data;
     wire [REG_ADDR_WIDTH-1:0]  ex_rd_addr;
@@ -127,7 +127,7 @@ module pipeline #(
     wire                       ex_pc_write;        // branch/jump redirect
     wire [IMEM_ADDR_WIDTH-1:0] ex_new_pc;
 
-    // ââ EX/MEM register outputs âââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── EX/MEM register outputs ───────────────────────────────────────────────
     wire [DATA_WIDTH-1:0]      exmem_alu_result;
     wire [DATA_WIDTH-1:0]      exmem_store_data;
     wire [REG_ADDR_WIDTH-1:0]  exmem_rd_addr;
@@ -137,17 +137,17 @@ module pipeline #(
     wire                       exmem_is_load;
     wire                       exmem_clk;          // wire clock feed-through
 
-    // ââ MEM âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── MEM ───────────────────────────────────────────────────────────────────
     wire [REG_ADDR_WIDTH-1:0]  mem_rd_addr;
     wire                       mem_reg_wen;
     wire [DATA_WIDTH-1:0]      mem_wdata;
 
-    // ââ MEM/WB register outputs âââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── MEM/WB register outputs ───────────────────────────────────────────────
     wire                       memwb_reg_wen;
     wire [REG_ADDR_WIDTH-1:0]  memwb_rd_addr;
     wire [DATA_WIDTH-1:0]      memwb_wdata;
 
-    // ââ WB ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+    // ── WB ────────────────────────────────────────────────────────────────────
     wire                       wb_reg_wen;
     wire [REG_ADDR_WIDTH-1:0]  wb_rd_addr;
     wire [DATA_WIDTH-1:0]      wb_wdata;
@@ -155,8 +155,8 @@ module pipeline #(
     // =========================================================================
     // Branch flush logic
     // When EX detects a taken branch/jump:
-    //   - Flush IF/ID register  â replace fetched instruction with NOP
-    //   - Flush ID/EX register  â replace decoded instruction with NOP
+    //   - Flush IF/ID register  → replace fetched instruction with NOP
+    //   - Flush ID/EX register  → replace decoded instruction with NOP
     //   - Redirect PC in IF stage (pc_write / new_pc)
     // We hold the flush for one cycle using a registered copy of pc_write.
     // =========================================================================
